@@ -12,6 +12,9 @@
    ">
    
    <context:component-scan base-package="net.jaya.onlineshopping.controller"/>
+   <context:component-scan base-package="net.jaya.shoppingbackend.daoimpl"/>
+   
+   
    
    <bean id="viewResolver"
    class="org.springframework.web.servlet.view.InternalResourceViewResolver">
