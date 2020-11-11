@@ -3,69 +3,99 @@ package net.jaya.shoppingbackend.daoimpl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import net.jaya.shoppingbackend.dao.CategoryDAO;
 import net.jaya.shoppingbackend.dto.Category;
 
 @Repository("categoryDAO")
+@Transactional
 public class CategoryDAOImpl implements CategoryDAO 
 {
 	
-	private static List<Category> categories=new ArrayList<>(); 
-
+	@Autowired
+	private SessionFactory sessionFactory;
 	
-	static
+		
+	
+	@Override
+	public List<Category> list() 
 	{
-		Category category=new Category();
+		String selectActiveCategory = "FROM Category WHERE active = :active";
 		
-		//adding first category
-		category.setId(1);
-		category.setName("Television");
-		category.setDescription("This is some description for television!");
-		category.setImageURL("CAT_1.png");
+		Query query = sessionFactory.getCurrentSession().createQuery(selectActiveCategory);
 		
-		categories.add(category);
+		query.setParameter("active", true);
 		
-		//second category
-		Category category2=new Category();
-		category2.setId(2);
-		category2.setName("Mobile");
-		category2.setDescription("This is some description for mobile!");
-		category2.setImageURL("CAT_2.png");
-		
-		categories.add(category2);
-		
-		//third category
-		Category category3=new Category();
-  		category3.setId(3);
-		category3.setName("Laptop");
-		category3.setDescription("This is some description for laptop!");
-		category3.setImageURL("CAT_3.png");
-				
-		categories.add(category3);
-
+		return query.getResultList();
 	}
-	
-	
+
+    /*
+     * Getting single category based on id
+     */
 	@Override
-	public List<Category> list() {
-		// TODO Auto-generated method stub
-		return categories;
+	public Category get(int id) 
+	{
+		
+		return sessionFactory.getCurrentSession().get(Category.class, Integer.valueOf(id));
 	}
 
 
 	@Override
-	public Category get(int id) {
-		// enchanced for loop
-		for(Category category : categories)
+
+	public boolean add(Category category) 
+	{
+		try
 		{
-			
-			if(category.getId()== id)
-				return category;
-			
+	    sessionFactory.getCurrentSession().persist(category);
+		return true;	
 		}
-		return null;
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		return false;
+		}
+	}
+
+    /*
+     * Updating a single category
+     */
+	@Override
+	public boolean update(Category category) 
+	{
+		try
+		{
+	    sessionFactory.getCurrentSession().update(category);
+		return true;	
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		return false;
+		}
+	}
+
+
+	@Override
+	public boolean delete(Category category) 
+	{   
+		
+		category.setActive(false);
+		
+		try
+		{
+	    sessionFactory.getCurrentSession().update(category);
+		return true;	
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		return false;
+		}
 	}
 
 }
