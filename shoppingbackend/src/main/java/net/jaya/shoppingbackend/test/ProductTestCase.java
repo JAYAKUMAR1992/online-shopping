@@ -1,6 +1,7 @@
 package net.jaya.shoppingbackend.test;
 
 import static org.junit.Assert.assertEquals;
+
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -27,7 +28,7 @@ public class ProductTestCase {
 		productDAO = (ProductDAO)context.getBean("productDAO");
 	}
 	
-	/*@Test
+	@Test
 	public void testCRUDProduct() {
 		
 		// create operation
@@ -58,7 +59,7 @@ public class ProductTestCase {
 		assertEquals("Something went wrong while fetching the list of products!",
 				6,productDAO.list().size());		
 				
-	}*/
+	}
 		
 	
 	@Test

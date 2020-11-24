@@ -1,10 +1,10 @@
 package net.jaya.shoppingbackend.dao;
 
 import java.util.List;
-
 import net.jaya.shoppingbackend.dto.Product;
 
-public interface ProductDAO {
+public interface ProductDAO 
+{
 
 	Product get(int productId);
 	List<Product> list();	

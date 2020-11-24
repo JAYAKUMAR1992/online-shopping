@@ -3,7 +3,7 @@
 	     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
 	     http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>net.kzn</groupId>
+	<groupId>net.jaya</groupId>
 	<artifactId>onlineshopping</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
@@ -22,7 +22,7 @@
 
 		<!-- Link backend project -->
 		<dependency>
-			<groupId>net.kzn</groupId>
+			<groupId>net.jaya</groupId>
 			<artifactId>shoppingbackend</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>

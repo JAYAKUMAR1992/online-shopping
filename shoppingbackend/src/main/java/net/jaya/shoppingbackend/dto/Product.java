@@ -1,7 +1,5 @@
 package net.jaya.shoppingbackend.dto;
 
-
-
 import java.io.Serializable;
 import java.util.UUID;
 
@@ -11,11 +9,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Transient;
-//import javax.validation.constraints.Min;
+import javax.validation.constraints.Min;
 
-//import org.hibernate.validator.constraints.NotBlank;
-//import org.springframework.stereotype.Component;
-//import org.springframework.web.multipart.MultipartFile;
+import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -30,19 +27,20 @@ public class Product implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String code;
-	//@NotBlank(message = "Please enter the product name!")
+	
+	
+	@NotBlank(message = "Please enter the Product Name!")
 	private String name;
-	//@NotBlank(message = "Please enter the brand name!")
+	@NotBlank(message = "Please enter the Brand Name!")
 	private String brand;
-	//@NotBlank(message = "Please enter the description!")
+	@NotBlank(message = "Please enter the description for Product!")
     @JsonIgnore
 	private String description;
 	@Column(name = "unit_price")
-	//@Min(value = 1, message="Please select at least one value!")
+	@Min(value = 1, message="The price cannot be less than 1!")
 	private double unitPrice;
 	private int quantity;
 	@Column(name = "is_active")
-	@JsonIgnore
 	private boolean active;
 	@Column(name = "category_id")
 	@JsonIgnore
@@ -54,7 +52,7 @@ public class Product implements Serializable {
 	private int views;
 	
 	
-/*	@Transient
+	@Transient
 	private MultipartFile file;
 			
 	public MultipartFile getFile() {
@@ -64,9 +62,9 @@ public class Product implements Serializable {
 	public void setFile(MultipartFile file) {
 		this.file = file;
 	}
-*/
 
-	// default constructor
+
+	// default constructor  
 	public Product() {
 		
 		this.code = "PRD" + UUID.randomUUID().toString().substring(26).toUpperCase();
@@ -153,7 +151,6 @@ public class Product implements Serializable {
 	}
 
 	
-	// toString for debugging
 	@Override
 	public String toString() {
 		return "Product [id=" + id + ", code=" + code + ", name=" + name + ", brand=" + brand + ", description="
